@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Formulario de colores</title>
+    <link rel='stylesheet' href='/css/style.css' />
+  </head>
+
+  <body style="background-color:<%= locals.cookieColor ? locals.cookieColor : null %>">
+
+    <% if(locals.name){ %>
+      <div class="form-color">
+        <div>
+          ¡Bienvenido!
+        </div>
+        <div class="welcome">
+          <% if (age) { %>
+            <h2>Hola <%= name %>, elegiste el color: <%= color %>, tu email es: <%= email %> y tu edad es: <%= age %></h2>
+        <%  }else{ %>                    
+          <h2>Hola <%= name %>, elegiste el color: <%= color %>, tu email es: <%= email %></h2>
+        <% } %>
+          <button class="exitButton"><a href="/logout">Salir</a></button>
+        </div>
+      </div> 
+
+  <% }else{ %>
+
+    <form class="form-color" method="POST">
+      <div class="toComplete">
+        <input type="text" placeholder="Ingresa tu nombre" name="name" value="<%= locals.old && old.name ? old.name : null %>">
+        <span class="text-danger small"><%= locals.errors && errors.name ? errors.name.msg : null %></span>
+      </div>
+
+      <div class="toComplete">
+        <input type="email" placeholder="Ingresa tu Email" name="email" value="<%= locals.old && old.email ? old.email : null %>">
+        <span class="text-danger small"><%= locals.errors && errors.email ? errors.email.msg : null %></span>
+      </div>   
+
+      <div class="toComplete">
+        <input placeholder="Ingresa tu edad" name="age" value="<%= locals.old && old.age ? old.age : null %>">
+        <span class="text-danger small"><%= locals.errors && errors.age ? errors.age.msg : null %></span>
+      </div>   
+      <div class="toComplete">
+        <select name="color">          
+          <option value="<%= locals.old && old.color ? old.color : null %>"><%= locals.old && old.color ? old.color : "Elige un color:" %></option>
+          <option value="Green">Verde</option>
+          <option value="Red">Rojo</option>
+          <option value="Pink">Rosa</option>
+          <option value="Blue">Azul</option>
+        </select>
+        <span class="text-danger small"><%= locals.errors && errors.color ? errors.color.msg : null %></span>
+      </div>
+
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" name="remember">
+        <label class="form-check-label" for="remember">Recordar color</label>
+      </div>
+
+      <br>
+      <button type="submit" class="btn  btn-block">Enviar</button>      
+      <button class="exitButton" ><a href="/destroy">Olvidar color</a></button>
+    </form>
+    <% } %>
+
+  </body>
+</html>
